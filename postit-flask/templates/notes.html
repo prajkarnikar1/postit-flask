@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<header>
+    <style>
+        .table {
+	        display:table;
+	        border-collapse:separate;
+	        border-spacing:2px;
+        }
+        .thead {
+	        display:table-header-group;
+	        color:white;
+	        font-weight:bold;
+	        background-color:grey;
+        }
+        .tbody {
+	        display:table-row-group;
+        }
+        .tr {
+	        display:table-row;
+        }
+        .td {
+	        display:table-cell;
+	        border:1px solid black;
+	        padding:1px;
+        }
+        .tr.editing .td INPUT {
+	        width:100px;
+        }
+    </style>
+</header>
+<body>
+    
+    
+    <div class="table">
+        <div class="thead">
+            <span class="td">Note ID</span>
+            <span class="td">Note Text</span>
+            <span class="td">Update/Insert</span>
+        </div>
+        {% for note in notes %}
+        <form class="tr" action="/update" method="post">
+            <span class="td"><input id="id" name="id" type="number" value="{{ note.id }}" readonly></span>
+            <span class="td"><input id="text" name="text" type="text" maxlength=500 value="{{ note.text }}"></span>    
+            <span class="td"><input type="submit" value="Update"></span>
+        </form>
+        <form action="/delete" method="post">
+            <input id="id" name="id" type="number" value="{{ note.id }}" readonly hidden>
+            <input type="submit" value="Delete">
+        </form>
+        {% endfor %}
+        <form class="tr" action="/new" method="post">
+            <span class="td"><p></p></span>
+            <span class="td"><input id="text" name="text" type="text" maxlength=500 value=""></span>
+            <span class="td"><input type="submit" value="Add"></span>
+        </form>
+    </div>
+</body>
+<footer>
+</footer>
+</html>
